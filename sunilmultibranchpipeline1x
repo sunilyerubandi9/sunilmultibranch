@@ -21,23 +21,26 @@ pipeline {
 		stage('Deploy for development') {
 			when {
 				branch 'development'
-			}
+		
 			steps {
 				echo 'dev branch deployment...'
 				snDevOpsStep()
 		//		snDevOpsArtifact artifactsPayload: '{"artifacts":[{"name": "sa-web.jar", "version": "1.38", "repositoryName": "sunilmultibranch"}, {"name": "sa-db.jar", "version": "1.38", "repositoryName": "sunilmultibranch"}], "branchName": ${branch}}'
 				sleep 5
 			}
+		    }
 		}
 		stage('Deploy for production') {
 			when {
 				branch 'prod'
-			}
+			
 			steps {
 				echo 'prod branch deployment...'
 				snDevOpsStep()
 				sleep 5
 			}
+			
+		    }
 		}
 	}
 }

@@ -21,6 +21,10 @@ pipeline {
         }
 
         stage('Upload-JFrog-${branch}') {
+        
+           when {
+                branch 'scratch/feature1.38'
+            }
             steps {
                 echo 'Upload-JFrog-${branch}'
             }
@@ -50,6 +54,11 @@ ${branch}/${BUILD_NUMBER}/"
         }
 
         stage('Download-Jfrog-${branch}') {
+        
+            when {
+                branch 'scratch/feature1.38'
+            }
+            
             steps {
                 echo 'Download-Jfrog-${branch}'
                 sleep 10
@@ -85,7 +94,7 @@ ${branch}/${BUILD_NUMBER}/jfrog_saif.jar",
                 branch 'development'
             }
             steps {
-                echo 'dev branch deployment...'
+                echo 'dev branch deployment - ${branch}'
                 snDevOpsStep()
                 
                 sleep 15
@@ -97,7 +106,7 @@ ${branch}/${BUILD_NUMBER}/jfrog_saif.jar",
                 branch 'prod'
             }
             steps {
-                echo 'prod branch deployment...'
+                echo 'prod branch deployment - ${branch}'
                 snDevOpsStep()
                 //snDevOpsArtifact(artifactsPayload:"""{"artifacts": [{"name": "prod_artifact.jar","version": "1.1","semanticVersion": "1.1.0","repositoryName": "multibranch"}],"stageName": "Deploy for production"}""")
                 sleep 15

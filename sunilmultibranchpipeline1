@@ -19,9 +19,9 @@ pipeline {
 			}
 		}
 		
-		stage('Upload-JFrog-${branch}') {
+		stage('Upload-JFrog-branch') {
             		steps {
-                		echo 'Upload-JFrog-${branch}'
+                		echo 'Upload-JFrog-branch'
            		}
 
 			post {
@@ -31,7 +31,7 @@ pipeline {
 					     def uploadSpec = """{
 						"files": [{
 						   "pattern": "/tmp/jfrog_saif.jar",
-						   "target": "sunijfrogmultibranch-libs-snapshot-local/${branch}/${BUILD_NUMBER}/"
+						   "target": "sunijfrogmultibranch-libs-snapshot-local/branch/${BUILD_NUMBER}/"
 						}]
 					     }"""
 

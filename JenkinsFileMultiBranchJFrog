@@ -82,7 +82,7 @@ ${branch}/${BUILD_NUMBER}/jfrog_saif.jar",
 
         stage('Deploy for development') {
             when {
-                branch 'dev'
+                branch 'development'
             }
             steps {
                 echo 'dev branch deployment...'

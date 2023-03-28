@@ -22,6 +22,7 @@ pipeline {
 		stage('Upload-JFrog-branch') {
             		steps {
                 		echo 'Upload-JFrog-branch'
+				echo '${branch}'
            		}
 
 			post {

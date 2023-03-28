@@ -18,6 +18,34 @@ pipeline {
 				sleep 5
 			}
 		}
+		
+		stage('Upload-JFrog-branch') {
+            		steps {
+                		echo 'Upload-JFrog-branch'
+				echo '${GIT_BRANCH}'
+				echo '${BRANCH_NAME}'
+				echo '${env.BRANCH_NAME}'
+           		}
+
+			post {
+				always {
+				   script {
+					     def server = Artifactory.server 'JFROG1'
+					     def uploadSpec = """{
+						"files": [{
+						   "pattern": "/tmp/jfrog_saif.jar",
+						   "target": "sunijfrogmultibranch-libs-snapshot-local/jfrog/${BUILD_NUMBER}/"
+						}]
+					     }"""
+
+					     def buildInfo = server.upload(uploadSpec)
+					     server.publishBuildInfo buildInfo
+					  }
+				    }
+			      }
+
+                }
+		
 		stage('Deploy for development') {
 			when {
 				branch 'development'
